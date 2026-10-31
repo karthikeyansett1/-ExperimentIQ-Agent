@@ -1,0 +1,69 @@
+{
+  "metric": "conversion",
+  "cuped": false,
+  "question": "Evaluate this experiment using the statistical tools. Check randomization integrity, significance, and confidence intervals. Should we ship the feature?",
+  "result": {
+    "test": "two-proportion z-test / Newcombe CI",
+    "control_n": 1500,
+    "treatment_n": 1500,
+    "control_mean": 0.202,
+    "treatment_mean": 0.30333333333333334,
+    "absolute_effect": 0.10133333333333333,
+    "p_value": 1.6990674046162082e-10,
+    "ci_low": 0.07033653848449342,
+    "ci_high": 0.13208508164378352,
+    "srm_p_value": 1.0,
+    "recommendation": "SHIP",
+    "warnings": [],
+    "metric": "conversion",
+    "use_cuped": false
+  },
+  "guidance": [
+    {
+      "topic": "srm",
+      "text": "Sample-ratio mismatch compares observed arm sizes against the intended randomized allocation. SRM p<0.001 is an investigation trigger, not proof of a particular cause."
+    },
+    {
+      "topic": "decision",
+      "text": "An observed significant positive effect alone cannot justify rollout. Evaluate business costs, guardrails, multiple testing, practical effect size and SRM before deployment."
+    },
+    {
+      "topic": "conversion",
+      "text": "For independent binary assignments, a two-proportion z-test and Newcombe confidence interval quantify absolute treatment-minus-control conversion difference. This assumes independent randomization units."
+    }
+  ],
+  "summary": "### Observed evidence\n- Conversion was **20.2%** in control and **30.33%** in treatment.\n- The observed treatment effect was **+10.13 percentage points** (about **+50.2% relative** to control).\n- The reported 95% confidence interval for the absolute effect is **+7.03 to +13.21 percentage points**; the two-proportion test reported **p = 1.70 \u00d7 10\u207b\u00b9\u2070**.\n\n### Validity checks\n- Sample sizes were equal (**1,500 per group**). The SRM test showed no sample-ratio mismatch (**p = 1.0**), and the results report no warnings.\n- An absent SRM is reassuring about allocation counts, but **does not by itself establish randomization validity** or rule out other design or measurement problems.\n\n### Decision and caveats\n- **Deterministic gate: SHIP.** The reported recommendation is SHIP.\n- **Conditional recommendation:** The result is strongly positive; shipping is reasonable if the experiment\u2019s assignment, exposure, and conversion measurement were implemented correctly. The observed difference should not be treated as causal if those design checks fail.",
+  "trace": [
+    {
+      "round": 1,
+      "tool": "get_experiment_results",
+      "arguments": {},
+      "result_preview": "{\"test\": \"two-proportion z-test / Newcombe CI\", \"control_n\": 1500, \"treatment_n\": 1500, \"control_mean\": 0.202, \"treatment_mean\": 0.30333333333333334, \"absolute_effect\": 0.10133333333333333, \"p_value\": 1.6990674046162082e-10, \"ci_low\": 0.07033653848449342, \"ci_high\": 0.13208508164378352, \"srm_p_value\": 1.0, \"recommendation\": \"SHIP\", \"warnings\": [], \"metric\": \"conversion\", \"use_cuped\": false}"
+    }
+  ],
+  "stages": [
+    {
+      "stage": "validate",
+      "detail": "Validated input and computed inference with SciPy/statsmodels"
+    },
+    {
+      "stage": "retrieve",
+      "detail": "Retrieved curated methodological references"
+    },
+    {
+      "stage": "hosted",
+      "detail": "OpenAI gpt-6-luna: completed; 1 tool calls"
+    },
+    {
+      "stage": "report",
+      "detail": "Built exportable evidence-based memo"
+    }
+  ],
+  "model_status": "completed",
+  "model_error": "",
+  "report": "# ExperimentIQ | Experiment Decision Memo\n\n**Deterministic gate:** SHIP  \n**Outcome:** conversion \u00b7 **Method:** two-proportion z-test / Newcombe CI\n\n### Observed evidence\n- Conversion was **20.2%** in control and **30.33%** in treatment.\n- The observed treatment effect was **+10.13 percentage points** (about **+50.2% relative** to control).\n- The reported 95% confidence interval for the absolute effect is **+7.03 to +13.21 percentage points**; the two-proportion test reported **p = 1.70 \u00d7 10\u207b\u00b9\u2070**.\n\n### Validity checks\n- Sample sizes were equal (**1,500 per group**). The SRM test showed no sample-ratio mismatch (**p = 1.0**), and the results report no warnings.\n- An absent SRM is reassuring about allocation counts, but **does not by itself establish randomization validity** or rule out other design or measurement problems.\n\n### Decision and caveats\n- **Deterministic gate: SHIP.** The reported recommendation is SHIP.\n- **Conditional recommendation:** The result is strongly positive; shipping is reasonable if the experiment\u2019s assignment, exposure, and conversion measurement were implemented correctly. The observed difference should not be treated as causal if those design checks fail.\n\n---\n\n**Methodological limitations:** Single outcome, naive independent-unit inference, prespecified ratio assumed 50/50. Not a production causal-inference system; no multiple-comparisons adjustment, guardrail integration, cluster-robust estimators, or sequential p-value correction. Synthetic benchmarks evaluate programmed decision gates, not LLM accuracy.",
+  "tokens": {
+    "input_tokens": 933,
+    "output_tokens": 266
+  }
+}

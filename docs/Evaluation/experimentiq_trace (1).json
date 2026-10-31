@@ -1,0 +1,71 @@
+{
+  "metric": "conversion",
+  "cuped": false,
+  "question": "The treatment effect appears positive, but check whether sample ratio mismatch makes this experiment unreliable. Should we launch or investigate first?",
+  "result": {
+    "test": "two-proportion z-test / Newcombe CI",
+    "control_n": 2100,
+    "treatment_n": 900,
+    "control_mean": 0.20761904761904762,
+    "treatment_mean": 0.2966666666666667,
+    "absolute_effect": 0.08904761904761907,
+    "p_value": 1.3158956073238494e-07,
+    "ci_low": 0.055043327877802854,
+    "ci_high": 0.1240082760984543,
+    "srm_p_value": 2.1367005928864054e-106,
+    "recommendation": "INVESTIGATE / HOLD",
+    "warnings": [
+      "Sample ratio mismatch: investigate assignment or missingness"
+    ],
+    "metric": "conversion",
+    "use_cuped": false
+  },
+  "guidance": [
+    {
+      "topic": "srm",
+      "text": "Sample-ratio mismatch compares observed arm sizes against the intended randomized allocation. SRM p<0.001 is an investigation trigger, not proof of a particular cause."
+    },
+    {
+      "topic": "decision",
+      "text": "An observed significant positive effect alone cannot justify rollout. Evaluate business costs, guardrails, multiple testing, practical effect size and SRM before deployment."
+    },
+    {
+      "topic": "conversion",
+      "text": "For independent binary assignments, a two-proportion z-test and Newcombe confidence interval quantify absolute treatment-minus-control conversion difference. This assumes independent randomization units."
+    }
+  ],
+  "summary": "### Observed evidence\n- Conversion was **20.76%** in control (2,100 users) and **29.67%** in treatment (900 users): an observed increase of **8.90 percentage points** (about **42.9% relative** to control).\n- The reported 95% confidence interval for the absolute difference is **5.50 to 12.40 percentage points**; the reported p-value is **1.32 \u00d7 10\u207b\u2077**.\n\n### Validity checks\n- **Severe sample ratio mismatch:** SRM p-value **2.14 \u00d7 10\u207b\u00b9\u2070\u2076**, with group sizes 2,100 vs. 900.\n- The results flag this as requiring investigation of assignment or missingness. The small p-value for the conversion difference does not resolve that validity concern.\n\n### Decision and caveats\n**Investigate first; hold launch.** This is the reported decision gate, and the treatment\u2019s positive observed effect should not be treated as reliable until the SRM is explained. Check allocation, exposure logging, eligibility, and missingness, then reassess using valid data.",
+  "trace": [
+    {
+      "round": 1,
+      "tool": "get_experiment_results",
+      "arguments": {},
+      "result_preview": "{\"test\": \"two-proportion z-test / Newcombe CI\", \"control_n\": 2100, \"treatment_n\": 900, \"control_mean\": 0.20761904761904762, \"treatment_mean\": 0.2966666666666667, \"absolute_effect\": 0.08904761904761907, \"p_value\": 1.3158956073238494e-07, \"ci_low\": 0.055043327877802854, \"ci_high\": 0.1240082760984543, \"srm_p_value\": 2.1367005928864054e-106, \"recommendation\": \"INVESTIGATE / HOLD\", \"warnings\": [\"Sample ratio mismatch: investigate assignment or missingness\"], \"metric\": \"conversion\", \"use_cuped\": false}"
+    }
+  ],
+  "stages": [
+    {
+      "stage": "validate",
+      "detail": "Validated input and computed inference with SciPy/statsmodels"
+    },
+    {
+      "stage": "retrieve",
+      "detail": "Retrieved curated methodological references"
+    },
+    {
+      "stage": "hosted",
+      "detail": "OpenAI gpt-6-luna: completed; 1 tool calls"
+    },
+    {
+      "stage": "report",
+      "detail": "Built exportable evidence-based memo"
+    }
+  ],
+  "model_status": "completed",
+  "model_error": "",
+  "report": "# ExperimentIQ | Experiment Decision Memo\n\n**Deterministic gate:** INVESTIGATE / HOLD  \n**Outcome:** conversion \u00b7 **Method:** two-proportion z-test / Newcombe CI\n\n### Observed evidence\n- Conversion was **20.76%** in control (2,100 users) and **29.67%** in treatment (900 users): an observed increase of **8.90 percentage points** (about **42.9% relative** to control).\n- The reported 95% confidence interval for the absolute difference is **5.50 to 12.40 percentage points**; the reported p-value is **1.32 \u00d7 10\u207b\u2077**.\n\n### Validity checks\n- **Severe sample ratio mismatch:** SRM p-value **2.14 \u00d7 10\u207b\u00b9\u2070\u2076**, with group sizes 2,100 vs. 900.\n- The results flag this as requiring investigation of assignment or missingness. The small p-value for the conversion difference does not resolve that validity concern.\n\n### Decision and caveats\n**Investigate first; hold launch.** This is the reported decision gate, and the treatment\u2019s positive observed effect should not be treated as reliable until the SRM is explained. Check allocation, exposure logging, eligibility, and missingness, then reassess using valid data.\n\n---\n\n**Methodological limitations:** Single outcome, naive independent-unit inference, prespecified ratio assumed 50/50. Not a production causal-inference system; no multiple-comparisons adjustment, guardrail integration, cluster-robust estimators, or sequential p-value correction. Synthetic benchmarks evaluate programmed decision gates, not LLM accuracy.",
+  "tokens": {
+    "input_tokens": 958,
+    "output_tokens": 256
+  }
+}
