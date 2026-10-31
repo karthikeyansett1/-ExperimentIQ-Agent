@@ -14,7 +14,7 @@ A cloud-first A/B testing platform combining reproducible statistical inference,
 ![SciPy](https://img.shields.io/badge/Inference-SciPy-8CAAE6?style=flat-square)
 ![OpenAI](https://img.shields.io/badge/AI-OpenAI%20Responses%20API-10A37F?style=flat-square)
 
-**[Live Demo — https://experimentiq-agent.streamlit.app/](#deployment)** · **[Architecture](#system-architecture)** · **[Evaluation](#evaluation--observed-results)** · **[Getting Started](#getting-started)**
+**[Live Demo — ]((https://experimentiq-agent.streamlit.app/))** · **[Architecture](#system-architecture)** · **[Evaluation](#evaluation--observed-results)** · **[Getting Started](#getting-started)**
 
 </div>
 
